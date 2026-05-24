@@ -1,0 +1,30 @@
+﻿@model HealthWorker
+@{
+    ViewData["Title"] = "Delete Health Worker";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0 fw-bold text-danger"><i class="bi bi-trash me-2"></i>Delete Health Worker</h5>
+    <a asp-action="Index" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+</div>
+<div class="card" style="max-width:500px;">
+    <div class="card-body">
+        <div class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            Are you sure you want to remove <strong>@Model.FullName</strong>?
+        </div>
+        <dl class="row" style="font-size:0.875rem;">
+            <dt class="col-sm-5 text-secondary">Name</dt>
+            <dd class="col-sm-7">@Model.FullName</dd>
+            <dt class="col-sm-5 text-secondary">Position</dt>
+            <dd class="col-sm-7">@Model.Position</dd>
+            <dt class="col-sm-5 text-secondary">Barangay</dt>
+            <dd class="col-sm-7">@Model.AssignedBarangay</dd>
+        </dl>
+        <form asp-action="Delete" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger me-2"><i class="bi bi-trash me-1"></i>Yes, Delete</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

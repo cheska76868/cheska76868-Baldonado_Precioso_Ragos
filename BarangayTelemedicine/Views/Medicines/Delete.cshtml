@@ -1,0 +1,30 @@
+﻿@model Medicine
+@{
+    ViewData["Title"] = "Delete Medicine";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0 fw-bold text-danger"><i class="bi bi-trash me-2"></i>Delete Medicine</h5>
+    <a asp-action="Index" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+</div>
+<div class="card" style="max-width:500px;">
+    <div class="card-body">
+        <div class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            Are you sure you want to remove <strong>@Model.Name</strong> from the inventory?
+        </div>
+        <dl class="row" style="font-size:0.875rem;">
+            <dt class="col-sm-5 text-secondary">Medicine</dt>
+            <dd class="col-sm-7">@Model.Name</dd>
+            <dt class="col-sm-5 text-secondary">Generic Name</dt>
+            <dd class="col-sm-7">@Model.GenericName</dd>
+            <dt class="col-sm-5 text-secondary">Stock</dt>
+            <dd class="col-sm-7">@Model.StockQuantity @Model.Unit</dd>
+        </dl>
+        <form asp-action="Delete" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger me-2"><i class="bi bi-trash me-1"></i>Yes, Delete</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

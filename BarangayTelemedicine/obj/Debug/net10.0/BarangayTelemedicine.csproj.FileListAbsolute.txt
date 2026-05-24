@@ -1,0 +1,10 @@
+C:\Users\Francheska Precioso\source\repos\BarangayTelemedicine\BarangayTelemedicine\obj\Debug\net10.0\BarangayTelemedicine.csproj.AssemblyReference.cache
+C:\Users\Francheska Precioso\source\repos\BarangayTelemedicine\BarangayTelemedicine\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Users\Francheska Precioso\source\repos\BarangayTelemedicine\BarangayTelemedicine\obj\Debug\net10.0\BarangayTelemedicine.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Francheska Precioso\source\repos\BarangayTelemedicine\BarangayTelemedicine\obj\Debug\net10.0\BarangayTelemedicine.AssemblyInfoInputs.cache
+C:\Users\Francheska Precioso\source\repos\BarangayTelemedicine\BarangayTelemedicine\obj\Debug\net10.0\BarangayTelemedicine.AssemblyInfo.cs
+C:\Users\Francheska Precioso\source\repos\BarangayTelemedicine\BarangayTelemedicine\obj\Debug\net10.0\BarangayTelemedicine.csproj.CoreCompileInputs.cache
+C:\Users\Francheska Precioso\source\repos\BarangayTelemedicine\BarangayTelemedicine\obj\Debug\net10.0\BarangayTelemedicine.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Francheska Precioso\source\repos\BarangayTelemedicine\BarangayTelemedicine\obj\Debug\net10.0\BarangayTelemedicine.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Francheska Precioso\source\repos\BarangayTelemedicine\BarangayTelemedicine\obj\Debug\net10.0\BarangayTelemedicine.RazorAssemblyInfo.cache
+C:\Users\Francheska Precioso\source\repos\BarangayTelemedicine\BarangayTelemedicine\obj\Debug\net10.0\BarangayTelemedicine.RazorAssemblyInfo.cs

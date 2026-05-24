@@ -1,0 +1,58 @@
+﻿@* Views/HealthWorkers/Index.cshtml *@
+@model IEnumerable<HealthWorker>
+@{
+    ViewData["Title"] = "Health Workers";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0 fw-bold"><i class="bi bi-person-badge me-2 text-cyan"></i>Health Workers</h5>
+    <a asp-action="Create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-1"></i>Add Health Worker</a>
+</div>
+<div class="card mb-3">
+    <div class="card-body py-2">
+        <form method="get" class="d-flex gap-2">
+            <input type="text" name="search" value="@ViewBag.Search" class="form-control form-control-sm" placeholder="Search name or barangay..." style="max-width:260px;" />
+            <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Search</button>
+            <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Clear</a>
+        </form>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr><th>#</th><th>Name</th><th>Position</th><th>Assigned Barangay</th><th>Contact</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="7" class="text-center text-muted py-4">No health workers found.</td></tr>
+                }
+                @foreach (var h in Model)
+                {
+                    <tr>
+                        <td>@h.Id</td>
+                        <td><strong>@h.FullName</strong></td>
+                        <td>@h.Position</td>
+                        <td>@h.AssignedBarangay</td>
+                        <td>@(h.ContactNumber ?? "-")</td>
+                        <td>
+                            @if (h.IsActive)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Inactive</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@h.Id" class="btn btn-sm btn-outline-info"><i class="bi bi-eye"></i></a>
+                            <a asp-action="Edit" asp-route-id="@h.Id" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i></a>
+                            <a asp-action="Delete" asp-route-id="@h.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

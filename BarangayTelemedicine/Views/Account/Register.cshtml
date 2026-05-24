@@ -1,0 +1,75 @@
+﻿@model RegisterViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Register";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Barangay TeleHealth</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+        body { background: linear-gradient(135deg, #0f4c75 0%, #1b83c1 100%); min-height: 100vh; display: flex; align-items: center; padding: 2rem 0; }
+        .card { border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); border: none; }
+        .card-header { background: #0f4c75; color: white; text-align: center; padding: 1.5rem; }
+        .form-control:focus { border-color: #1b83c1; box-shadow: 0 0 0 0.2rem rgba(27,131,193,0.15); }
+        .btn-primary { background: #0f4c75; border-color: #0f4c75; }
+    </style>
+</head>
+<body>
+<div class="container" style="max-width:460px;">
+    <div class="card">
+        <div class="card-header">
+            <i class="bi bi-person-plus-fill fs-2 text-info"></i>
+            <h5 class="mb-0 mt-2">Create Account</h5>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2" style="font-size:0.85rem;"></div>
+
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label fw-semibold"></label>
+                    <input asp-for="FullName" class="form-control" placeholder="Juan dela Cruz" />
+                    <span asp-validation-for="FullName" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label fw-semibold"></label>
+                    <input asp-for="Email" class="form-control" placeholder="user@email.com" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Role" class="form-label fw-semibold">Account Type</label>
+                    <select asp-for="Role" class="form-select">
+                        <option value="Patient">Patient</option>
+                        <option value="HealthWorker">Health Worker</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label fw-semibold"></label>
+                    <input asp-for="Password" class="form-control" placeholder="At least 6 characters" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label fw-semibold"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Repeat password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-check-circle me-2"></i>Register
+                </button>
+                <div class="text-center mt-3">
+                    <a asp-action="Login" class="text-decoration-none" style="color:#1b83c1;font-size:0.875rem;">
+                        Already have an account? Login
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

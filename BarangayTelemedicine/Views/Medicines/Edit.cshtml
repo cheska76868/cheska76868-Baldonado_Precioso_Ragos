@@ -1,0 +1,81 @@
+﻿@model Medicine
+@{
+    ViewData["Title"] = "Edit Medicine";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0 fw-bold"><i class="bi bi-pencil-square me-2 text-warning"></i>Edit Medicine</h5>
+    <a asp-action="Index" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+</div>
+<div class="card" style="max-width:680px;">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input asp-for="Id" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2" style="font-size:0.85rem;"></div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="Name" class="form-label fw-semibold"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="GenericName" class="form-label fw-semibold"></label>
+                    <input asp-for="GenericName" class="form-control" />
+                    <span asp-validation-for="GenericName" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Category" class="form-label fw-semibold"></label>
+                    <select asp-for="Category" class="form-select">
+                        <option>Antibiotic</option>
+                        <option>Analgesic</option>
+                        <option>Antihypertensive</option>
+                        <option>Antidiabetic</option>
+                        <option>Antihistamine</option>
+                        <option>Vitamin/Supplement</option>
+                        <option>Antiseptic</option>
+                        <option>Other</option>
+                    </select>
+                    <span asp-validation-for="Category" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Dosage" class="form-label fw-semibond"></label>
+                    <input asp-for="Dosage" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Unit" class="form-label fw-semibold"></label>
+                    <select asp-for="Unit" class="form-select">
+                        <option>tablet</option>
+                        <option>capsule</option>
+                        <option>bottle</option>
+                        <option>vial</option>
+                        <option>sachet</option>
+                        <option>ampule</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="StockQuantity" class="form-label fw-semibold"></label>
+                    <input asp-for="StockQuantity" class="form-control" type="number" min="0" />
+                    <span asp-validation-for="StockQuantity" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="ExpiryDate" class="form-label fw-semibold"></label>
+                    <input asp-for="ExpiryDate" class="form-control" type="date" />
+                </div>
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                        <input asp-for="RequiresPrescription" class="form-check-input" type="checkbox" />
+                        <label asp-for="RequiresPrescription" class="form-check-label">Requires Prescription</label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn btn-warning"><i class="bi bi-save me-1"></i>Save Changes</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

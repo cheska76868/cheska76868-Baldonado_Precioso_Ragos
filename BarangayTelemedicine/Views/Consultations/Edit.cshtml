@@ -1,0 +1,70 @@
+﻿@model Consultation
+@{
+    ViewData["Title"] = "Edit Consultation";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0 fw-bold"><i class="bi bi-pencil-square me-2 text-warning"></i>Edit Consultation</h5>
+    <a asp-action="Index" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input asp-for="Id" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2" style="font-size:0.85rem;"></div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="PatientId" class="form-label fw-semibold">Patient</label>
+                    <select asp-for="PatientId" asp-items="ViewBag.Patients" class="form-select"></select>
+                    <span asp-validation-for="PatientId" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="HealthWorkerId" class="form-label fw-semibold">Health Worker</label>
+                    <select asp-for="HealthWorkerId" asp-items="ViewBag.HealthWorkers" class="form-select"></select>
+                    <span asp-validation-for="HealthWorkerId" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="ConsultationDate" class="form-label fw-semibold"></label>
+                    <input asp-for="ConsultationDate" class="form-control" type="date" />
+                    <span asp-validation-for="ConsultationDate" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="VitalSigns" class="form-label fw-semibold"></label>
+                    <input asp-for="VitalSigns" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="FollowUpDate" class="form-label fw-semibold"></label>
+                    <input asp-for="FollowUpDate" class="form-control" type="date" />
+                </div>
+                <div class="col-12">
+                    <label asp-for="ChiefComplaint" class="form-label fw-semibold"></label>
+                    <textarea asp-for="ChiefComplaint" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="ChiefComplaint" class="text-danger small"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Diagnosis" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Diagnosis" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="Diagnosis" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Prescription" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Prescription" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="TreatmentPlan" class="form-label fw-semibold"></label>
+                    <textarea asp-for="TreatmentPlan" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                        <input asp-for="IsTelemedicine" class="form-check-input" type="checkbox" />
+                        <label asp-for="IsTelemedicine" class="form-check-label">📡 Telemedicine (Remote)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn btn-warning"><i class="bi bi-save me-1"></i>Save Changes</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

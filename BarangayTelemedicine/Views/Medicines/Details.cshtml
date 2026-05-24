@@ -1,0 +1,46 @@
+﻿@* Views/Medicines/Details.cshtml *@
+@model Medicine
+@{
+    ViewData["Title"] = "Medicine Details";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0 fw-bold"><i class="bi bi-capsule me-2 text-info"></i>@Model.Name</h5>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil me-1"></i>Edit</a>
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+    </div>
+</div>
+<div class="card" style="max-width:500px;">
+    <div class="card-body">
+        <dl class="row" style="font-size:0.875rem;">
+            <dt class="col-sm-5 text-secondary">Medicine Name</dt>
+            <dd class="col-sm-7"><strong>@Model.Name</strong></dd>
+            <dt class="col-sm-5 text-secondary">Generic Name</dt>
+            <dd class="col-sm-7">@Model.GenericName</dd>
+            <dt class="col-sm-5 text-secondary">Category</dt>
+            <dd class="col-sm-7">@Model.Category</dd>
+            <dt class="col-sm-5 text-secondary">Dosage</dt>
+            <dd class="col-sm-7">@(Model.Dosage ?? "-")</dd>
+            <dt class="col-sm-5 text-secondary">Stock</dt>
+            <dd class="col-sm-7">@Model.StockQuantity @Model.Unit</dd>
+            <dt class="col-sm-5 text-secondary">Stock Status</dt>
+            <dd class="col-sm-7">
+                @{
+                    var badgeClass = Model.StockStatus switch
+                    {
+                        "Out of Stock" => "bg-danger",
+                        "Low Stock" => "bg-warning text-dark",
+                        _ => "bg-success"
+                    };
+                }
+                <span class="badge @badgeClass">@Model.StockStatus</span>
+            </dd>
+            <dt class="col-sm-5 text-secondary">Expiry Date</dt>
+            <dd class="col-sm-7">@(Model.ExpiryDate?.ToString("MMMM dd, yyyy") ?? "Not set")</dd>
+            <dt class="col-sm-5 text-secondary">Prescription</dt>
+            <dd class="col-sm-7">@(Model.RequiresPrescription ? "Required" : "Not required")</dd>
+            <dt class="col-sm-5 text-secondary">Description</dt>
+            <dd class="col-sm-7">@(Model.Description ?? "None")</dd>
+        </dl>
+    </div>
+</div>

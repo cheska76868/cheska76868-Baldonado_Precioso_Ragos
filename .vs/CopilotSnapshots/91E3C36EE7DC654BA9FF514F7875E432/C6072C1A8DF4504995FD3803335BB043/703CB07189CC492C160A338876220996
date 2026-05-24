@@ -1,0 +1,16 @@
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+
+namespace BarangayTelemedicine.Models
+{
+	public class ApplicationUser : IdentityUser
+	{
+		[Required]
+		[StringLength(100)]
+		public string FullName { get; set; } = string.Empty;
+
+		[Required]
+		[StringLength(50)]
+		public string Role { get; set; } = "Patient"; // Admin, HealthWorker, Patient
+	}
+}

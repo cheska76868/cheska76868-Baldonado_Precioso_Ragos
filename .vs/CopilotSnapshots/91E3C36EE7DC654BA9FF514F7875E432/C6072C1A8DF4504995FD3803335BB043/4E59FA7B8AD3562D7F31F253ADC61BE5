@@ -1,0 +1,64 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using BarangayTelemedicine.Models;
+
+namespace BarangayTelemedicine.Data
+{
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+	{
+		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+			: base(options) { }
+
+		public DbSet<Patient> Patients { get; set; }
+		public DbSet<Appointment> Appointments { get; set; }
+		public DbSet<Consultation> Consultations { get; set; }
+		public DbSet<HealthWorker> HealthWorkers { get; set; }
+		public DbSet<Medicine> Medicines { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			base.OnModelCreating(builder);
+
+			// Ensure CreatedAt has a DB default so that existing DB schemas requiring a non-null value are satisfied
+			builder.Entity<ApplicationUser>()
+				.Property(u => u.CreatedAt)
+				.HasDefaultValueSql("GETUTCDATE()");
+
+			// Patient -> Appointments (one-to-many)
+			builder.Entity<Appointment>()
+				.HasOne(a => a.Patient)
+				.WithMany(p => p.Appointments)
+				.HasForeignKey(a => a.PatientId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			// HealthWorker -> Appointments (one-to-many)
+			builder.Entity<Appointment>()
+				.HasOne(a => a.HealthWorker)
+				.WithMany(hw => hw.Appointments)
+				.HasForeignKey(a => a.HealthWorkerId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			// Patient -> Consultations (one-to-many)
+			builder.Entity<Consultation>()
+				.HasOne(c => c.Patient)
+				.WithMany(p => p.Consultations)
+				.HasForeignKey(c => c.PatientId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			// HealthWorker -> Consultations (one-to-many)
+			builder.Entity<Consultation>()
+				.HasOne(c => c.HealthWorker)
+				.WithMany(hw => hw.Consultations)
+				.HasForeignKey(c => c.HealthWorkerId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			// Appointment -> Consultation (one-to-one, optional)
+			builder.Entity<Consultation>()
+				.HasOne(c => c.Appointment)
+				.WithOne(a => a.Consultation)
+				.HasForeignKey<Consultation>(c => c.AppointmentId)
+				.OnDelete(DeleteBehavior.SetNull);
+		}
+	}
+}

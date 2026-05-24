@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Barangay Telemedicine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+            :root {
+                --sidebar-bg: #0f4c75;
+                --sidebar-accent: #1b83c1;
+                --sidebar-text: #cce7f5;
+                --sidebar-active: #ffffff;
+                --top-bar: #1b83c1;
+            }
+
+            body {
+                background: #f0f4f8;
+                font-family: 'Segoe UI', sans-serif;
+            }
+
+            .sidebar {
+                width: 240px;
+                min-height: 100vh;
+                background: var(--sidebar-bg);
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 100;
+                padding-top: 0;
+            }
+
+            .sidebar-brand {
+                background: var(--top-bar);
+                padding: 1rem 1.2rem;
+                color: white;
+                font-weight: 700;
+                font-size: 0.95rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                border-bottom: 1px solid rgba(255,255,255,0.15);
+            }
+
+                .sidebar-brand i {
+                    font-size: 1.5rem;
+                    color: #7dd4fc;
+                }
+
+                .sidebar-brand small {
+                    display: block;
+                    font-size: 0.7rem;
+                    font-weight: 400;
+                    opacity: 0.8;
+                }
+
+            .sidebar .nav-link {
+                color: var(--sidebar-text);
+                padding: 0.6rem 1.2rem;
+                border-radius: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-size: 0.875rem;
+                transition: background 0.2s;
+            }
+
+                .sidebar .nav-link:hover, .sidebar .nav-link.active {
+                    background: rgba(255,255,255,0.12);
+                    color: var(--sidebar-active);
+                }
+
+            .sidebar .nav-section {
+                font-size: 0.68rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: rgba(255,255,255,0.4);
+                padding: 0.8rem 1.2rem 0.3rem;
+            }
+
+            .main-content {
+                margin-left: 240px;
+                min-height: 100vh;
+            }
+
+            .topbar {
+                background: white;
+                border-bottom: 1px solid #e2e8f0;
+                padding: 0.75rem 1.5rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .page-content {
+                padding: 1.5rem;
+            }
+
+            .card {
+                border: none;
+                border-radius: 12px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            }
+
+            .card-header {
+                background: white;
+                border-bottom: 1px solid #e2e8f0;
+                border-radius: 12px 12px 0 0 !important;
+                font-weight: 600;
+            }
+
+            .stat-card {
+                border-radius: 12px;
+                color: white;
+                padding: 1.2rem;
+            }
+
+                .stat-card .stat-icon {
+                    font-size: 2.5rem;
+                    opacity: 0.3;
+                }
+
+                .stat-card .stat-number {
+                    font-size: 2rem;
+                    font-weight: 700;
+                }
+
+                .stat-card .stat-label {
+                    font-size: 0.8rem;
+                    opacity: 0.85;
+                }
+
+            .btn-primary {
+                background: var(--top-bar);
+                border-color: var(--top-bar);
+            }
+
+                .btn-primary:hover {
+                    background: var(--sidebar-bg);
+                    border-color: var(--sidebar-bg);
+                }
+
+            .badge-pending {
+                background: #fef3c7;
+                color: #92400e;
+            }
+
+            .badge-confirmed {
+                background: #d1fae5;
+                color: #065f46;
+            }
+
+            .badge-completed {
+                background: #dbeafe;
+                color: #1e40af;
+            }
+
+            .badge-cancelled {
+                background: #fee2e2;
+                color: #991b1b;
+            }
+
+            .table th {
+                font-weight: 600;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                color: #6b7280;
+            }
+
+            .alert-success {
+                background: #d1fae5;
+                border-color: #a7f3d0;
+                color: #065f46;
+            }
+    </style>
+</head>
+<body>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <i class="bi bi-heart-pulse-fill"></i>
+                <div>
+                    <div>Barangay TeleHealth</div>
+                    <small>SDG 3: Good Health</small>
+                </div>
+            </div>
+            <div class="pt-2">
+                <span class="nav-section">Main</span>
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")"
+                   asp-controller="Dashboard" asp-action="Index">
+                    <i class="bi bi-grid-1x2"></i> Dashboard
+                </a>
+
+                <span class="nav-section">Records</span>
+                @if (User.IsInRole("Admin") || User.IsInRole("HealthWorker"))
+                {
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Patients" ? "active" : "")"
+                       asp-controller="Patients" asp-action="Index">
+                        <i class="bi bi-people"></i> Patients
+                    </a>
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Appointments" ? "active" : "")"
+                       asp-controller="Appointments" asp-action="Index">
+                        <i class="bi bi-calendar-check"></i> Appointments
+                    </a>
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Consultations" ? "active" : "")"
+                       asp-controller="Consultations" asp-action="Index">
+                        <i class="bi bi-file-medical"></i> Consultations
+                    </a>
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("HealthWorker"))
+                {
+                    <span class="nav-section">Management</span>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "HealthWorkers" ? "active" : "")"
+                           asp-controller="HealthWorkers" asp-action="Index">
+                            <i class="bi bi-person-badge"></i> Health Workers
+                        </a>
+                    }
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Medicines" ? "active" : "")"
+                       asp-controller="Medicines" asp-action="Index">
+                        <i class="bi bi-capsule"></i> Medicines
+                    </a>
+                }
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="topbar">
+                <div>
+                    <span class="fw-semibold text-secondary" style="font-size:0.85rem;">
+                        @ViewData["Title"]
+                    </span>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="text-secondary" style="font-size:0.85rem;">
+                        <i class="bi bi-person-circle me-1"></i>@User.Identity.Name
+                    </span>
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="page-content">
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle me-2"></i>@TempData["Success"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+                @RenderBody()
+            </div>
+        </div>
+    }
+    else
+    {
+        @RenderBody()
+    }
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

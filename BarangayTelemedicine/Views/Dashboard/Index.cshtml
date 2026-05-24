@@ -1,0 +1,127 @@
+﻿@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xl-4">
+        <div class="stat-card" style="background:linear-gradient(135deg,#0f4c75,#1b83c1);">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">@Model.TotalPatients</div>
+                    <div class="stat-label">Total Patients</div>
+                </div>
+                <i class="bi bi-people-fill stat-icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <div class="stat-card" style="background:linear-gradient(135deg,#065f46,#059669);">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">@Model.TotalAppointments</div>
+                    <div class="stat-label">Total Appointments</div>
+                </div>
+                <i class="bi bi-calendar2-check-fill stat-icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <div class="stat-card" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">@Model.TotalConsultations</div>
+                    <div class="stat-label">Total Consultations</div>
+                </div>
+                <i class="bi bi-file-medical-fill stat-icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <div class="stat-card" style="background:linear-gradient(135deg,#b45309,#f59e0b);">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">@Model.PendingAppointments</div>
+                    <div class="stat-label">Pending Appointments</div>
+                </div>
+                <i class="bi bi-hourglass-split stat-icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <div class="stat-card" style="background:linear-gradient(135deg,#0e7490,#06b6d4);">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-number">@Model.TotalHealthWorkers</div>
+                    <div class="stat-label">Active Health Workers</div>
+                </div>
+                <i class="bi bi-person-badge-fill stat-icon"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center py-3">
+                <span><i class="bi bi-clock-history me-2 text-primary"></i>Recent Appointments</span>
+                <a asp-controller="Appointments" asp-action="Create" class="btn btn-sm btn-primary">
+                    <i class="bi bi-plus"></i> New
+                </a>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Patient</th>
+                            <th>Health Worker</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.RecentAppointments.Any())
+                        {
+                            <tr><td colspan="4" class="text-center text-muted py-4">No appointments yet.</td></tr>
+                        }
+                        @foreach (var a in Model.RecentAppointments)
+                        {
+                            <tr>
+                                <td><i class="bi bi-person-circle me-1 text-secondary"></i>@a.PatientName</td>
+                                <td>@a.HealthWorker</td>
+                                <td>@a.Date.ToString("MMM dd, yyyy")</td>
+                                <td>
+                                    <span class="badge badge-@a.Status.ToLower() px-2 py-1">@a.Status</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header py-3">
+                <i class="bi bi-globe-americas me-2 text-success"></i>SDG 3 Connection
+            </div>
+            <div class="card-body">
+                <p class="text-secondary" style="font-size:0.85rem;">
+                    This system directly supports <strong>SDG Goal 3: Good Health and Well-being</strong>
+                    by providing telemedicine services to remote barangay communities with limited access to healthcare.
+                </p>
+                <ul class="list-unstyled" style="font-size:0.82rem;">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Remote patient consultations</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Health monitoring & records</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Appointment scheduling</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Medicine inventory tracking</li>
+                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Barangay health worker management</li>
+                </ul>
+                <div class="mt-3 p-2 rounded text-center" style="background:#f0fdf4;border:1px solid #bbf7d0;font-size:0.75rem;color:#166534;">
+                         Ensuring healthy lives and promoting well-being for all at all ages
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

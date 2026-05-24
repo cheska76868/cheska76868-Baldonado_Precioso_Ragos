@@ -1,0 +1,77 @@
+﻿@model LoginViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Barangay TeleHealth</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+        body { background: linear-gradient(135deg, #0f4c75 0%, #1b83c1 100%); min-height: 100vh; display: flex; align-items: center; }
+        .login-card { border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .login-header { background: #0f4c75; color: white; padding: 2rem; text-align: center; }
+        .login-header .icon { font-size: 3rem; color: #7dd4fc; }
+        .login-body { background: white; padding: 2rem; }
+        .form-control:focus { border-color: #1b83c1; box-shadow: 0 0 0 0.2rem rgba(27,131,193,0.15); }
+        .btn-login { background: #0f4c75; border: none; padding: 0.65rem; font-weight: 600; letter-spacing: 0.03em; }
+        .btn-login:hover { background: #1b83c1; }
+        .sdg-badge { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.8rem; color: #166534; }
+    </style>
+</head>
+<body>
+<div class="container" style="max-width:420px;">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="icon"><i class="bi bi-heart-pulse-fill"></i></div>
+            <h4 class="mt-2 mb-0">Barangay TeleHealth</h4>
+            <p class="mb-0 opacity-75" style="font-size:0.85rem;">Health Management System</p>
+        </div>
+        <div class="login-body">
+            <div class="sdg-badge text-center mb-3">
+                 Supporting SDG 3: Good Health and Well-being
+            </div>
+            <form asp-action="Login" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2" style="font-size:0.85rem;display:@(ViewData.ModelState.IsValid ? "none" : "block")"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label fw-semibold"></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input asp-for="Email" class="form-control" placeholder="admin@barangay.gov.ph" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label fw-semibold"></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input asp-for="Password" class="form-control" placeholder="••••••••" />
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+                <div class="mb-3 form-check">
+                    <input asp-for="RememberMe" class="form-check-input" />
+                    <label asp-for="RememberMe" class="form-check-label text-secondary small"></label>
+                </div>
+                <button type="submit" class="btn btn-login btn-primary w-100">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                </button>
+                <hr class="my-3"/>
+                <div class="text-center">
+                    <a asp-action="Register" class="text-decoration-none" style="color:#1b83c1;font-size:0.875rem;">
+                        Don't have an account? Register here
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

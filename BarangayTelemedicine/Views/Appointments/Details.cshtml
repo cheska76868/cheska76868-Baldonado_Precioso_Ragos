@@ -1,0 +1,41 @@
+﻿@* Views/Appointments/Details.cshtml *@
+@model Appointment
+@{
+    ViewData["Title"] = "Appointment Details";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0 fw-bold"><i class="bi bi-calendar2-check me-2 text-info"></i>Appointment Details</h5>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil me-1"></i>Edit</a>
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+    </div>
+</div>
+<div class="card" style="max-width:600px;">
+    <div class="card-body">
+        <dl class="row" style="font-size:0.875rem;">
+            <dt class="col-sm-4 text-secondary">Patient</dt>
+            <dd class="col-sm-8"><strong>@Model.Patient?.FullName</strong></dd>
+            <dt class="col-sm-4 text-secondary">Health Worker</dt>
+            <dd class="col-sm-8">@Model.HealthWorker?.FullName</dd>
+            <dt class="col-sm-4 text-secondary">Date & Time</dt>
+            <dd class="col-sm-8">@Model.AppointmentDate.ToString("MMMM dd, yyyy h:mm tt")</dd>
+            <dt class="col-sm-4 text-secondary">Reason</dt>
+            <dd class="col-sm-8">@Model.Reason</dd>
+            <dt class="col-sm-4 text-secondary">Status</dt>
+            <dd class="col-sm-8"><span class="badge badge-@Model.Status.ToLower() px-2 py-1">@Model.Status</span></dd>
+            <dt class="col-sm-4 text-secondary">Notes</dt>
+            <dd class="col-sm-8">@(Model.Notes ?? "-")</dd>
+        </dl>
+        @if (Model.Consultation != null)
+        {
+            <div class="alert alert-info mt-3 py-2" style="font-size:0.85rem;">
+                <i class="bi bi-file-medical me-2"></i>
+                Consultation record exists for this appointment.
+                <a asp-controller="Consultations" asp-action="Details" asp-route-id="@Model.Consultation.Id" class="alert-link ms-1">View →</a>
+            </div>
+        }
+    </div>
+</div>
+
+@* ============================================================ *@
+@* Views/Appointments/Delete.cshtml — inline as separate file *@

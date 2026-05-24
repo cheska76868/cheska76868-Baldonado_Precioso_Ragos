@@ -1,0 +1,59 @@
+﻿@* Views/Consultations/Details.cshtml *@
+@model Consultation
+@{
+    ViewData["Title"] = "Consultation Record";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0 fw-bold"><i class="bi bi-file-medical me-2 text-info"></i>Consultation Record</h5>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil me-1"></i>Edit</a>
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+    </div>
+</div>
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header py-2"><i class="bi bi-person me-2"></i>Patient Info</div>
+            <div class="card-body">
+                <dl class="row mb-0" style="font-size:0.875rem;">
+                    <dt class="col-sm-5 text-secondary">Patient</dt>
+                    <dd class="col-sm-7"><strong>@Model.Patient?.FullName</strong></dd>
+                    <dt class="col-sm-5 text-secondary">Health Worker</dt>
+                    <dd class="col-sm-7">@Model.HealthWorker?.FullName</dd>
+                    <dt class="col-sm-5 text-secondary">Date</dt>
+                    <dd class="col-sm-7">@Model.ConsultationDate.ToString("MMMM dd, yyyy")</dd>
+                    <dt class="col-sm-5 text-secondary">Type</dt>
+                    <dd class="col-sm-7">
+                        @if (Model.IsTelemedicine)
+                        {
+                            <span class="badge bg-info text-dark">📡 Telemedicine</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">In-Person</span>
+                        }
+                    </dd>
+                    <dt class="col-sm-5 text-secondary">Vital Signs</dt>
+                    <dd class="col-sm-7">@(Model.VitalSigns ?? "-")</dd>
+                    <dt class="col-sm-5 text-secondary">Follow-up</dt>
+                    <dd class="col-sm-7">@(Model.FollowUpDate?.ToString("MMMM dd, yyyy") ?? "None")</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header py-2"><i class="bi bi-clipboard2-pulse me-2"></i>Medical Record</div>
+            <div class="card-body">
+                <p class="mb-1 fw-semibold text-secondary small">Chief Complaint</p>
+                <p class="mb-3">@Model.ChiefComplaint</p>
+                <p class="mb-1 fw-semibold text-secondary small">Diagnosis</p>
+                <p class="mb-3">@Model.Diagnosis</p>
+                <p class="mb-1 fw-semibold text-secondary small">Prescription</p>
+                <p class="mb-3">@(Model.Prescription ?? "None")</p>
+                <p class="mb-1 fw-semibold text-secondary small">Treatment Plan</p>
+                <p class="mb-0">@(Model.TreatmentPlan ?? "None")</p>
+            </div>
+        </div>
+    </div>
+</div>
